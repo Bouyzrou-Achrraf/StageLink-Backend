@@ -7,6 +7,8 @@ use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\StudentProfile;
+use App\Models\CompanyProfile;
 
 class User extends Authenticatable
 {
@@ -46,5 +48,13 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function studentProfile(){
+        return $this->hasOne(StudentProfile::class);
+    }
+
+    public function companyProfile(){
+        return $this->hasOne(CompanyProfile::class);
     }
 }
