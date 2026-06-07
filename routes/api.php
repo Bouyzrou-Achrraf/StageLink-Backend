@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\StudentProfileController;
+use App\Http\Controllers\CompanyProfileController;
 
 
 Route::post(
@@ -15,5 +16,10 @@ Route::post(
 
 Route::put(
     'student-profile/{id}' ,
-    [studentProfileController::class , 'update']
+    [StudentProfileController::class , 'update']
+);
+
+Route::put(
+    'company-profile/{id}' ,
+    [CompanyProfileController::class , 'update']
 );
