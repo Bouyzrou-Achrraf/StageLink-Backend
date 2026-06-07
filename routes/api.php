@@ -2,13 +2,18 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\StudentProfileController;
 
 
-Route::post('/register' , [AuthController::class , 'register']);
+Route::post(
+    '/register' ,
+     [AuthController::class , 'register']);
 
-Route::post('/login' , [AuthController::class , 'login']);
+Route::post(
+    '/login' , 
+    [AuthController::class , 'login']);
 
 Route::put(
     'student-profile/{id}' ,
-    [studemtProfileController::class , 'update']
+    [studentProfileController::class , 'update']
 );
