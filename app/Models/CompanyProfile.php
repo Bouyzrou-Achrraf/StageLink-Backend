@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\internshipOffer;
 
 class CompanyProfile extends Model
 {
@@ -10,16 +11,16 @@ class CompanyProfile extends Model
         'user_id' ,
         'sector' ,
         'city' ,
-        'website ',
+        'website',
         'description' ,
         'logo'
     ];
 
     public function user (){
-        return $this->belongsTo(user::class);
+        return $this->belongsTo(User::class);
     }
 
     public function internshipOffers(){
-        return $this->hasMany(InternshipeOffer::class);
+        return $this->hasMany(InternshipOffer::class);
     }
 }

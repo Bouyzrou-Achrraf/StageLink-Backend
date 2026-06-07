@@ -5,3 +5,10 @@ use App\Http\Controllers\AuthController;
 
 
 Route::post('/register' , [AuthController::class , 'register']);
+
+Route::post('/login' , [AuthController::class , 'login']);
+
+Route::put(
+    'student-profile/{id}' ,
+    [studemtProfileController::class , 'update']
+);

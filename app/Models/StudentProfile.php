@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Application;
+use App\Models\Favorites;
 
 class StudentProfile extends Model
 {
@@ -10,7 +12,7 @@ class StudentProfile extends Model
         'user_id' ,
         'phone' ,
         'city' ,
-        'field_od_study' ,
+        'field_of_study' ,
         'education_level' ,
         'skills' ,
         'cv' ,
@@ -22,10 +24,10 @@ class StudentProfile extends Model
     }
 
     public function applications(){
-        return $this->hasMany(Application::calss);
+        return $this->hasMany(Application::class);
     }
 
     public function favorites(){
-        return $this->hasMany(Favorite::clas);
+        return $this->hasMany(Favorite::class);
     }
 }
