@@ -7,14 +7,16 @@
 
 <h2>Create Internship Offer (TEST)</h2>
 
-<form method="POST" action="{{ url('/test-internship-offer') }}">
+<form method="POST" action="/test-internship-offer">
     @csrf
 
-    <input name="title" placeholder="Title"><br><br>
-    <input name="description" placeholder="Description"><br><br>
-    <input name="duration" placeholder="Duration"><br><br>
-    <input name="location" placeholder="Location"><br><br>
-    <input name="required_skills" placeholder="Skills"><br><br>
+    <input name="token" placeholder="Bearer token"><br><br>
+
+    <input name="title"><br><br>
+    <input name="description"><br><br>
+    <input name="duration"><br><br>
+    <input name="location"><br><br>
+    <input name="required_skills"><br><br>
     <input name="deadline" type="date"><br><br>
 
     <button type="submit">Create Offer</button>

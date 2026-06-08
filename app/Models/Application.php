@@ -8,7 +8,7 @@ class Application extends Model
 {
     protected $fillable = [
         'student_profile_id' ,
-        'internshipe_offer_id' ,
+        'internship_offer_id' ,
         'status'
     ];
 

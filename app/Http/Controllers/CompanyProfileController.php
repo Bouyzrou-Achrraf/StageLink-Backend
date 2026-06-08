@@ -17,7 +17,9 @@ class CompanyProfileController extends Controller
 
         ]);
 
-         $profile = CompanyProfile::find($id);
+        $profile = CompanyProfile::where('id', $id)
+            ->where('user_id', auth()->id())
+            ->first();
 
         if (!$profile) {
             return response()->json([

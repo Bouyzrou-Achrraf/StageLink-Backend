@@ -5,6 +5,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\StudentProfileController;
 use App\Http\Controllers\CompanyProfileController;
 use App\Http\Controllers\InternshipOfferController;
+use App\Http\Controllers\ApplicationController;
+
 
 
 Route::post(
@@ -15,20 +17,25 @@ Route::post(
     '/login' , 
     [AuthController::class , 'login']);
 
-Route::put(
-    'student-profile/{id}' ,
-    [StudentProfileController::class , 'update']
-);
 
-Route::put(
-    'company-profile/{id}' ,
-    [CompanyProfileController::class , 'update']
-);
+Route::middleware('auth:sanctum')->group(function () {
 
+    Route::post(
+        '/internship-offers',
+        [InternshipOfferController::class, 'store']);
 
+    Route::post(
+        '/applications',
+        [ApplicationController::class, 'store']);
 
-Route::post(
-    '/internship-offers', 
-    [InternshipOfferController::class, 'store'
-]);
+    Route::put(
+        'student-profile/{id}' ,
+        [StudentProfileController::class , 'update']
+    );
 
+    Route::put(
+        'company-profile/{id}' ,
+        [CompanyProfileController::class , 'update']
+    );
+
+});

@@ -72,10 +72,15 @@ class AuthController extends Controller
                ] , 401 );
           }
 
-          return response()->json ([
-               'login' => 'Login Successful' ,
-               'user' => $user
-          ] , 200 );
+          
+          $token = $user->createToken('stagelink-token')->plainTextToken;
+
+          return response()->json([
+               'message' => 'Login successful',
+               'user' => $user,
+               'token' => $token
+          ]);
+}
 
     }
-}
+

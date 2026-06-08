@@ -17,7 +17,9 @@ class StudentProfileController extends Controller
             'bio' => 'nullable|string|max:1000',
         ]);
 
-        $profile = StudentProfile::find($id);
+        $profile = StudentProfile::where('id', $id)
+            ->where('user_id', auth()->id())
+            ->first();
 
         if (!$profile) {
             return response()->json([
