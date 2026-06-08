@@ -3,6 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\CompanyProfile;
+use App\Models\Application;
+use App\Models\Favorite;
 
 class InternshipOffer extends Model
 {
@@ -10,14 +13,14 @@ class InternshipOffer extends Model
         'company_profile_id' ,
         'title' ,
         'description' ,
-        'duration ' ,
-        'location ' ,
+        'duration' ,
+        'location' ,
         'required_skills' ,
         'deadline' ,
-        'status'
+        'status'        
     ];
 
-    public function companyPrifile(){
+    public function companyProfile(){
         return $this->belongsTo(CompanyProfile::class);
     }
 
@@ -26,6 +29,6 @@ class InternshipOffer extends Model
     }
 
     public function favorites(){
-        return $this->hasMny(Favorite::class);
+        return $this->hasMany(Favorite::class);
     }
 }

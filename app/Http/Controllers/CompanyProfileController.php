@@ -11,9 +11,9 @@ class CompanyProfileController extends Controller
         $validated = $request->validate([
             'sector' => 'nullable|string|max:255' ,
             'city' => 'nullable|string|max:100' ,
-            'website' => 'nullable|string|max:255',
+            'website' => 'nullable|url|max:255',
             'description' => 'nullable|string|max:1000' ,
-            'logo' => 'nullable|url|max:255'
+            'logo' => 'nullable|string|max:255'
 
         ]);
 

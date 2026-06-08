@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\StudentProfileController;
 use App\Http\Controllers\CompanyProfileController;
+use App\Http\Controllers\InternshipOfferController;
 
 
 Route::post(
@@ -23,3 +24,11 @@ Route::put(
     'company-profile/{id}' ,
     [CompanyProfileController::class , 'update']
 );
+
+
+
+Route::post(
+    '/internship-offers', 
+    [InternshipOfferController::class, 'store'
+]);
+
