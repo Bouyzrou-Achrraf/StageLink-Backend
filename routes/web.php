@@ -121,3 +121,145 @@ Route::post('/test-application', function (Request $request) {
         'application' => $application
     ]);
 });
+
+Route::get('/test-offers-list', function () {
+    return view('test-offers-list');
+});
+
+Route::post('/test-offers-list', function () {
+
+    $offers = \App\Models\InternshipOffer::with('companyProfile')->get();
+
+    return response()->json([
+        'offers' => $offers
+    ]);
+});
+
+Route::get('/test-company-applications', function () {
+    return view('test-company-applications');
+});
+
+Route::post('/test-company-applications', function (Illuminate\Http\Request $request) {
+
+    $token = $request->token;
+
+    $accessToken = PersonalAccessToken::findToken($token);
+
+    if (!$accessToken) {
+        return response()->json([
+            'message' => 'Invalid token'
+        ], 401);
+    }
+
+    $user = $accessToken->tokenable;
+
+    if ($user->role !== 'company') {
+        return response()->json([
+            'message' => 'Only companies can view applications'
+        ], 403);
+    }
+
+    $applications = \App\Models\Application::with([
+        'studentProfile',
+        'internshipOffer'
+    ])
+    ->whereHas('internshipOffer', function ($query) use ($user) {
+        $query->where(
+            'company_profile_id',
+            $user->companyProfile->id
+        );
+    })
+    ->get();
+
+    return response()->json([
+        'applications' => $applications
+    ]);
+});
+
+Route::get('/test-update-application', function () {
+    return view('test-update-application');
+});
+
+Route::post('/test-update-application', function (Illuminate\Http\Request $request) {
+
+    $token = trim($request->token);
+
+    $accessToken = \Laravel\Sanctum\PersonalAccessToken::findToken($token);
+
+    if (!$accessToken) {
+        return response()->json([
+            'message' => 'Invalid token'
+        ], 401);
+    }
+
+    $user = $accessToken->tokenable;
+
+    if ($user->role !== 'company') {
+        return response()->json([
+            'message' => 'Only companies can manage applications'
+        ], 403);
+    }
+
+    $application = \App\Models\Application::find(
+        $request->application_id
+    );
+
+    if (!$application) {
+        return response()->json([
+            'message' => 'Application not found'
+        ], 404);
+    }
+
+    $application->status = $request->status;
+
+    $application->save();
+
+    return response()->json([
+        'message' => 'Application updated successfully',
+        'application' => $application
+    ]);
+});
+
+Route::get('/test-my-applications', function () {
+    return view('test-my-applications');
+});
+
+
+
+
+
+Route::post('/test-my-applications', function (Illuminate\Http\Request $request) {
+
+    $accessToken = PersonalAccessToken::findToken(
+        trim($request->token)
+    );
+
+    if (!$accessToken) {
+        return response()->json([
+            'message' => 'Invalid token'
+        ], 401);
+    }
+
+    $user = $accessToken->tokenable;
+
+    if ($user->role !== 'student') {
+        return response()->json([
+            'message' => 'Only students can view applications'
+        ], 403);
+    }
+
+    $studentProfile = $user->studentProfile;
+
+    $applications = \App\Models\Application::with(
+        'internshipOffer'
+    )
+    ->where(
+        'student_profile_id',
+        $studentProfile->id
+    )
+    ->get();
+
+    return response()->json([
+        'applications' => $applications
+    ]);
+});

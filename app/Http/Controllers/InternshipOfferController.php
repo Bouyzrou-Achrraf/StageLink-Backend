@@ -7,6 +7,17 @@ use App\Models\InternshipOffer;
 
 class InternshipOfferController extends Controller
 {
+
+    public function index()
+    {
+        $offers = InternshipOffer::with('companyProfile')->get();
+
+        return response()->json([
+            'offers' => $offers
+        ]);
+    }
+
+    
     public function store(Request $request)
     {
         $user = auth()->user();
@@ -50,4 +61,6 @@ class InternshipOfferController extends Controller
             'offer' => $offer
         ], 201);
     }
+
+
 }

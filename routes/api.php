@@ -17,25 +17,46 @@ Route::post(
     '/login' , 
     [AuthController::class , 'login']);
 
+Route::get(
+    '/internship-offers',
+    [InternshipOfferController::class, 'index']
+);
+
 
 Route::middleware('auth:sanctum')->group(function () {
 
     Route::post(
         '/internship-offers',
-        [InternshipOfferController::class, 'store']);
+        [InternshipOfferController::class, 'store']
+    );
 
     Route::post(
         '/applications',
-        [ApplicationController::class, 'store']);
+        [ApplicationController::class, 'store']
+    );
 
-    Route::put(
-        'student-profile/{id}' ,
-        [StudentProfileController::class , 'update']
+    Route::get(
+        '/company/applications',
+        [ApplicationController::class, 'companyApplications']
     );
 
     Route::put(
-        'company-profile/{id}' ,
-        [CompanyProfileController::class , 'update']
+        '/applications/{id}/status',
+        [ApplicationController::class, 'updateStatus']
     );
 
+    Route::put(
+        '/student-profile/{id}',
+        [StudentProfileController::class, 'update']
+    );
+
+    Route::put(
+        '/company-profile/{id}',
+        [CompanyProfileController::class, 'update']
+    );
+
+    Route::get(
+        '/my-applications',
+        [ApplicationController::class, 'myApplications']
+    );
 });
